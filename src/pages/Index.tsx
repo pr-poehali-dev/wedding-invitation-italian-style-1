@@ -53,6 +53,7 @@ export default function Index() {
 
   const [form, setForm] = useState({
     name: "",
+    email: "",
     presence: "",
     drinks: [] as string[],
     wishes: "",
@@ -271,7 +272,7 @@ export default function Index() {
         }
         .sec-white { background: var(--c-white); }
         .sec-blue {
-          background: linear-gradient(135deg, #7BAFD4 0%, #5B90BE 100%);
+          background: linear-gradient(135deg, #3A78B5 0%, #2860A0 100%);
           color: #fff;
         }
         .sec-lemon { background: var(--c-lemon-light); }
@@ -835,8 +836,6 @@ export default function Index() {
             />
             <div className="hero-oval">
               <div className="hero-oval-inner">
-                <p className="hero-ciao">приглашаем вас на нашу свадьбу</p>
-                <Divider />
                 <h1 className="hero-names">Эдуард</h1>
                 <span className="hero-ampersand">&amp;</span>
                 <h1 className="hero-names">Полина</h1>
@@ -1046,6 +1045,16 @@ export default function Index() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email <span style={{fontWeight:300,fontSize:'12px',letterSpacing:'0',textTransform:'none',color:'#888'}}>(чтобы мы могли прислать подтверждение)</span></label>
+                <input
+                  type="text"
+                  placeholder="ваш@email.ru"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </div>
 
