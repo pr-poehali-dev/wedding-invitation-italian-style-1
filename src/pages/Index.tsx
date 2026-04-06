@@ -76,8 +76,17 @@ export default function Index() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('https://functions.poehali.dev/c903de63-204a-413f-ade8-322153ea41f1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+    } catch (err) {
+      console.error(err);
+    }
     setSubmitted(true);
   };
 
@@ -85,17 +94,19 @@ export default function Index() {
     <>
       <style>{`
         :root {
-          --c-blue: #2B5FA5;
-          --c-blue-dark: #1a3d6e;
-          --c-blue-light: #d6e8f7;
-          --c-lemon: #F5C800;
-          --c-lemon-light: #FFF8D6;
+          --c-blue: #4A7BB5;
+          --c-blue-dark: #2d5585;
+          --c-blue-light: #ddeaf7;
+          --c-blue-section: #6B9BC8;
+          --c-lemon: #D4A017;
+          --c-lemon-light: #FFF8E1;
           --c-white: #FEFCF5;
-          --c-text: #1a2035;
-          --c-text-light: #4a5068;
+          --c-text: #1a1a1a;
+          --c-text-light: #5a6070;
           --font-serif: 'Cormorant Garamond', Georgia, serif;
-          --font-sans: 'Montserrat', sans-serif;
-          --font-script: 'Montserrat', sans-serif;
+          --font-display: 'Playfair Display', Georgia, serif;
+          --font-sans: 'Jost', sans-serif;
+          --font-script: 'Cormorant Garamond', Georgia, serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -164,13 +175,13 @@ export default function Index() {
 
         .hero-lemon-img {
           position: absolute;
-          top: -110px;
+          top: -130px;
           left: 50%;
           transform: translateX(-50%);
-          width: 320px;
+          width: 300px;
           z-index: 10;
           pointer-events: none;
-          filter: drop-shadow(0 8px 24px rgba(0,0,0,0.10));
+          filter: drop-shadow(0 8px 28px rgba(0,0,0,0.13));
         }
 
         .hero-oval {
@@ -198,47 +209,48 @@ export default function Index() {
 
         .hero-ciao {
           font-family: var(--font-sans);
-          font-size: clamp(13px, 3vw, 16px);
+          font-size: clamp(11px, 2.5vw, 13px);
           font-weight: 400;
-          letter-spacing: 0.25em;
+          letter-spacing: 0.3em;
           text-transform: uppercase;
           color: var(--c-text-light);
-          margin-bottom: 4px;
+          margin-bottom: 8px;
         }
 
         .hero-names {
-          font-family: var(--font-sans);
-          font-size: clamp(28px, 7vw, 46px);
-          font-weight: 600;
-          line-height: 1.15;
+          font-family: var(--font-display);
+          font-size: clamp(32px, 8vw, 52px);
+          font-weight: 500;
+          font-style: italic;
+          line-height: 1.1;
           color: var(--c-blue);
-          margin-bottom: 4px;
+          margin-bottom: 2px;
           text-align: center;
         }
 
         .hero-ampersand {
           font-family: var(--font-serif);
-          font-size: clamp(22px, 5vw, 34px);
+          font-size: clamp(24px, 5vw, 36px);
           font-style: italic;
           color: var(--c-blue);
           line-height: 1;
-          margin: 2px 0;
+          margin: 4px 0;
         }
 
         .hero-date {
-          font-family: var(--font-sans);
+          font-family: var(--font-display);
           font-size: clamp(18px, 4vw, 26px);
-          font-weight: 700;
+          font-weight: 600;
+          font-style: italic;
           color: var(--c-lemon);
           letter-spacing: 0.02em;
-          margin-top: 10px;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+          margin-top: 12px;
         }
 
         .hero-location {
           font-family: var(--font-sans);
-          font-size: clamp(11px, 2vw, 13px);
-          letter-spacing: 0.2em;
+          font-size: clamp(10px, 2vw, 12px);
+          letter-spacing: 0.25em;
           text-transform: uppercase;
           color: var(--c-text-light);
           margin-top: 10px;
@@ -259,7 +271,7 @@ export default function Index() {
         }
         .sec-white { background: var(--c-white); }
         .sec-blue {
-          background: var(--c-blue);
+          background: linear-gradient(135deg, #7BAFD4 0%, #5B90BE 100%);
           color: #fff;
         }
         .sec-lemon { background: var(--c-lemon-light); }
@@ -276,12 +288,12 @@ export default function Index() {
         }
 
         .sec-title {
-          font-family: var(--font-sans);
+          font-family: var(--font-display);
           font-size: clamp(28px, 5vw, 44px);
-          font-weight: 700;
-          font-style: normal;
+          font-weight: 500;
+          font-style: italic;
           margin-bottom: 12px;
-          letter-spacing: 0.02em;
+          letter-spacing: 0.01em;
         }
         .sec-title.dark { color: var(--c-text); }
         .sec-title.light { color: #fff; }
@@ -330,8 +342,8 @@ export default function Index() {
 
         /* ===== WELCOME ===== */
         .welcome-text {
-          font-family: var(--font-sans);
-          font-size: clamp(16px, 2.8vw, 22px);
+          font-family: var(--font-serif);
+          font-size: clamp(18px, 3vw, 24px);
           font-weight: 400;
           line-height: 1.9;
           color: var(--c-text);
@@ -340,7 +352,7 @@ export default function Index() {
         .welcome-text em {
           font-style: italic;
           color: var(--c-blue);
-          font-weight: 600;
+          font-weight: 500;
         }
 
         /* ===== COUNTDOWN ===== */
@@ -359,7 +371,7 @@ export default function Index() {
           gap: 6px;
         }
         .countdown-num {
-          font-family: var(--font-serif);
+          font-family: var(--font-display);
           font-size: clamp(56px, 10vw, 96px);
           font-weight: 300;
           color: var(--c-lemon);
@@ -416,9 +428,10 @@ export default function Index() {
           font-weight: 600;
         }
         .place-name {
-          font-family: var(--font-sans);
-          font-size: clamp(17px, 2.5vw, 21px);
-          font-weight: 600;
+          font-family: var(--font-display);
+          font-size: clamp(18px, 2.5vw, 22px);
+          font-weight: 500;
+          font-style: italic;
           color: var(--c-text);
           margin-bottom: 8px;
           line-height: 1.4;
@@ -494,9 +507,10 @@ export default function Index() {
           padding: 10px 0 32px;
         }
         .timeline-time {
-          font-family: var(--font-sans);
-          font-size: clamp(22px, 3vw, 28px);
-          font-weight: 700;
+          font-family: var(--font-display);
+          font-size: clamp(22px, 3vw, 30px);
+          font-weight: 500;
+          font-style: italic;
           color: var(--c-blue);
           display: block;
           line-height: 1;
@@ -586,17 +600,24 @@ export default function Index() {
           content: '';
           position: absolute;
           inset: 0;
-          background: rgba(255,253,235,0.82);
+          background: rgba(255,253,240,0.88);
         }
         .sec-form-bg .sec-inner {
           position: relative;
           z-index: 1;
         }
+        .sec-form-bg .sec-title { color: #111 !important; }
+        .sec-form-bg .form-intro { color: #111; }
+        .sec-form-bg .form-group label:first-child { color: #333; }
+        .sec-form-bg .form-group input[type="text"],
+        .sec-form-bg .form-group textarea { color: #111; background: rgba(255,255,255,0.9); }
+        .sec-form-bg .radio-option { color: #111; }
+        .sec-form-bg .drink-option { color: #111; }
         .form-intro {
-          font-family: var(--font-sans);
-          font-size: clamp(16px, 2.5vw, 20px);
-          line-height: 1.8;
-          color: var(--c-text);
+          font-family: var(--font-serif);
+          font-size: clamp(17px, 2.5vw, 21px);
+          line-height: 1.9;
+          color: #111;
           margin-bottom: 40px;
           text-align: center;
         }
@@ -773,9 +794,10 @@ export default function Index() {
           text-align: center;
         }
         .footer-script {
-          font-family: var(--font-sans);
-          font-size: clamp(22px, 5vw, 38px);
-          font-weight: 600;
+          font-family: var(--font-display);
+          font-size: clamp(24px, 5vw, 42px);
+          font-weight: 500;
+          font-style: italic;
           color: var(--c-lemon);
           line-height: 1.4;
           margin: 24px 0 16px;
@@ -808,7 +830,7 @@ export default function Index() {
             {/* Watercolor lemon illustration — выступает над овалом */}
             <img
               className="hero-lemon-img"
-              src="https://cdn.poehali.dev/projects/00026160-0537-4715-a8aa-39785d3a60b5/bucket/bf35e26a-3a93-440c-99ea-020d05f40b77.jpeg"
+              src="https://cdn.poehali.dev/projects/00026160-0537-4715-a8aa-39785d3a60b5/bucket/6786efd6-5b1b-441f-abe5-0ab86c6821b5.png"
               alt="акварельные лимоны"
             />
             <div className="hero-oval">
@@ -1060,7 +1082,7 @@ export default function Index() {
               <div className="form-group">
                 <label>Пожелания молодожёнам</label>
                 <textarea
-                  placeholder="Ваши тёплые слова..."
+                  placeholder="Напишите, что думаете..."
                   value={form.wishes}
                   onChange={(e) => setForm({ ...form, wishes: e.target.value })}
                   rows={4}
