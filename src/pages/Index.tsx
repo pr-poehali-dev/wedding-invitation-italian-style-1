@@ -148,7 +148,7 @@ export default function Index() {
           display: flex;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
+          overflow: visible;
         }
 
         @keyframes float {
@@ -158,7 +158,7 @@ export default function Index() {
 
         .hero-inner {
           text-align: center;
-          padding: 40px 20px 60px;
+          padding: 160px 20px 60px;
           position: relative;
           z-index: 2;
           display: flex;
