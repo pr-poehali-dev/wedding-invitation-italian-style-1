@@ -95,7 +95,7 @@ export default function Index() {
           --c-text-light: #4a5068;
           --font-serif: 'Cormorant Garamond', Georgia, serif;
           --font-sans: 'Montserrat', sans-serif;
-          --font-script: 'Caveat', cursive;
+          --font-script: 'Montserrat', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -124,7 +124,14 @@ export default function Index() {
         /* ===== HERO ===== */
         .hero {
           min-height: 100vh;
-          background: var(--c-white);
+          background-color: #FEFDE8;
+          background-image: repeating-linear-gradient(
+            to right,
+            rgba(245,200,0,0.13) 0px,
+            rgba(245,200,0,0.13) 28px,
+            transparent 28px,
+            transparent 56px
+          );
           position: relative;
           display: flex;
           align-items: center;
@@ -132,138 +139,109 @@ export default function Index() {
           overflow: hidden;
         }
 
-        /* Majolica tile corners */
-        .hero::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image:
-            radial-gradient(circle at 10% 15%, rgba(43,95,165,0.06) 0%, transparent 50%),
-            radial-gradient(circle at 90% 85%, rgba(245,200,0,0.08) 0%, transparent 50%);
-          pointer-events: none;
-        }
-
-        .tile-corner {
-          position: absolute;
-          width: 220px;
-          height: 220px;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 4px;
-          opacity: 0.55;
-        }
-        .tile-corner.tl { top: 0; left: 0; }
-        .tile-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
-        .tile-corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
-        .tile-corner.br { bottom: 0; right: 0; transform: scale(-1); }
-
-        .tile-cell {
-          aspect-ratio: 1;
-          border-radius: 2px;
-          background: var(--c-blue-light);
-          position: relative;
-          overflow: hidden;
-        }
-        .tile-cell::before {
-          content: '';
-          position: absolute;
-          inset: 3px;
-          border-radius: 50%;
-          border: 2px solid var(--c-blue);
-          opacity: 0.5;
-        }
-        .tile-cell::after {
-          content: '';
-          position: absolute;
-          inset: 8px;
-          background: var(--c-blue);
-          border-radius: 50%;
-          opacity: 0.2;
-        }
-        .tile-cell:nth-child(2)::before,
-        .tile-cell:nth-child(4)::before,
-        .tile-cell:nth-child(6)::before,
-        .tile-cell:nth-child(8)::before {
-          border-radius: 0;
-          transform: rotate(45deg);
-        }
-
-        /* Lemon decorations in hero */
-        .hero-lemon {
-          position: absolute;
-          font-size: 52px;
-          line-height: 1;
-          filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-          animation: float 4s ease-in-out infinite;
-        }
-        .hero-lemon.l1 { top: 18%; left: 8%; animation-delay: 0s; }
-        .hero-lemon.l2 { top: 12%; right: 10%; animation-delay: 1s; font-size: 44px; }
-        .hero-lemon.l3 { bottom: 20%; left: 12%; animation-delay: 2s; font-size: 38px; }
-        .hero-lemon.l4 { bottom: 15%; right: 8%; animation-delay: 0.5s; font-size: 48px; }
-
         @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(-5deg); }
-          50% { transform: translateY(-12px) rotate(5deg); }
+          0%, 100% { transform: translateY(0) rotate(-2deg); }
+          50% { transform: translateY(-10px) rotate(2deg); }
         }
 
         .hero-inner {
           text-align: center;
-          padding: 60px 20px;
+          padding: 40px 20px 60px;
           position: relative;
           z-index: 2;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        /* Oval card */
+        .hero-oval-wrap {
+          position: relative;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .hero-lemon-img {
+          position: absolute;
+          top: -110px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 320px;
+          z-index: 10;
+          pointer-events: none;
+          filter: drop-shadow(0 8px 24px rgba(0,0,0,0.10));
+        }
+
+        .hero-oval {
+          border: 2.5px solid var(--c-blue);
+          border-radius: 50%;
+          width: clamp(280px, 72vw, 420px);
+          height: clamp(400px, 100vw, 580px);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255,253,240,0.92);
+          position: relative;
+          z-index: 5;
+          padding: 80px 32px 40px;
+          box-shadow: 0 4px 32px rgba(43,95,165,0.08), inset 0 0 0 6px rgba(43,95,165,0.06);
+        }
+
+        .hero-oval-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
         }
 
         .hero-ciao {
-          font-family: var(--font-script);
-          font-size: clamp(48px, 10vw, 80px);
-          color: var(--c-blue);
-          line-height: 1;
+          font-family: var(--font-sans);
+          font-size: clamp(13px, 3vw, 16px);
+          font-weight: 400;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: var(--c-text-light);
           margin-bottom: 4px;
         }
 
-        .hero-sub {
-          font-family: var(--font-sans);
-          font-size: clamp(11px, 2vw, 13px);
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: var(--c-text-light);
-          margin-bottom: 16px;
-        }
-
         .hero-names {
-          font-family: var(--font-serif);
-          font-size: clamp(64px, 14vw, 120px);
-          font-weight: 400;
-          line-height: 1.05;
-          color: var(--c-text);
-          margin-bottom: 8px;
+          font-family: var(--font-sans);
+          font-size: clamp(28px, 7vw, 46px);
+          font-weight: 600;
+          line-height: 1.15;
+          color: var(--c-blue);
+          margin-bottom: 4px;
+          text-align: center;
         }
 
-        .hero-names em {
+        .hero-ampersand {
+          font-family: var(--font-serif);
+          font-size: clamp(22px, 5vw, 34px);
           font-style: italic;
           color: var(--c-blue);
-          font-size: 0.7em;
-          display: block;
-          margin: 4px 0;
+          line-height: 1;
+          margin: 2px 0;
         }
 
         .hero-date {
-          font-family: var(--font-serif);
-          font-size: clamp(20px, 4vw, 32px);
-          font-weight: 300;
-          font-style: italic;
-          color: var(--c-blue-dark);
-          letter-spacing: 0.05em;
-          margin-top: 12px;
+          font-family: var(--font-sans);
+          font-size: clamp(18px, 4vw, 26px);
+          font-weight: 700;
+          color: var(--c-lemon);
+          letter-spacing: 0.02em;
+          margin-top: 10px;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.08);
         }
 
         .hero-location {
           font-family: var(--font-sans);
-          font-size: 12px;
-          letter-spacing: 0.25em;
+          font-size: clamp(11px, 2vw, 13px);
+          letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--c-text-light);
-          margin-top: 8px;
+          margin-top: 10px;
         }
 
         /* Blue border frame inside hero */
@@ -271,7 +249,7 @@ export default function Index() {
           position: absolute;
           inset: 20px;
           border: 1.5px solid var(--c-blue);
-          opacity: 0.12;
+          opacity: 0.08;
           pointer-events: none;
         }
 
@@ -298,31 +276,63 @@ export default function Index() {
         }
 
         .sec-title {
-          font-family: var(--font-serif);
-          font-size: clamp(32px, 6vw, 52px);
-          font-weight: 400;
-          font-style: italic;
+          font-family: var(--font-sans);
+          font-size: clamp(28px, 5vw, 44px);
+          font-weight: 700;
+          font-style: normal;
           margin-bottom: 12px;
+          letter-spacing: 0.02em;
         }
         .sec-title.dark { color: var(--c-text); }
         .sec-title.light { color: #fff; }
         .sec-title.blue { color: var(--c-blue); }
 
-        /* Lemon strip */
+        /* Ornament strip instead of lemons */
         .lemon-strip {
           display: flex;
           justify-content: center;
-          gap: 8px;
-          font-size: 20px;
+          align-items: center;
+          gap: 0;
           margin: 20px 0;
-          opacity: 0.7;
+          overflow: hidden;
+        }
+        .ornament-line {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          width: 100%;
+        }
+        .ornament-line::before,
+        .ornament-line::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), rgba(255,255,255,0.5));
+          max-width: 160px;
+        }
+        .ornament-line.dark::before,
+        .ornament-line.dark::after {
+          background: linear-gradient(to right, transparent, var(--c-blue), transparent);
+          opacity: 0.25;
+          max-width: 160px;
+        }
+        .ornament-symbol {
+          font-size: 13px;
+          letter-spacing: 6px;
+          color: rgba(255,255,255,0.6);
+          font-family: Georgia, serif;
+        }
+        .ornament-symbol.dark {
+          color: var(--c-blue);
+          opacity: 0.4;
         }
 
         /* ===== WELCOME ===== */
         .welcome-text {
-          font-family: var(--font-serif);
-          font-size: clamp(18px, 3vw, 24px);
-          font-weight: 300;
+          font-family: var(--font-sans);
+          font-size: clamp(16px, 2.8vw, 22px);
+          font-weight: 400;
           line-height: 1.9;
           color: var(--c-text);
           text-align: center;
@@ -330,6 +340,7 @@ export default function Index() {
         .welcome-text em {
           font-style: italic;
           color: var(--c-blue);
+          font-weight: 600;
         }
 
         /* ===== COUNTDOWN ===== */
@@ -397,34 +408,35 @@ export default function Index() {
         .place-icon { font-size: 32px; margin-bottom: 12px; }
         .place-title {
           font-family: var(--font-sans);
-          font-size: 10px;
-          letter-spacing: 0.3em;
+          font-size: 12px;
+          letter-spacing: 0.25em;
           text-transform: uppercase;
           color: var(--c-blue);
           margin-bottom: 12px;
+          font-weight: 600;
         }
         .place-name {
-          font-family: var(--font-serif);
-          font-size: 22px;
-          font-style: italic;
+          font-family: var(--font-sans);
+          font-size: clamp(17px, 2.5vw, 21px);
+          font-weight: 600;
           color: var(--c-text);
           margin-bottom: 8px;
           line-height: 1.4;
         }
         .place-address {
           font-family: var(--font-sans);
-          font-size: 13px;
+          font-size: 15px;
           color: var(--c-text-light);
           line-height: 1.7;
           margin-bottom: 20px;
         }
         .map-btn {
           display: inline-block;
-          padding: 10px 24px;
+          padding: 12px 28px;
           background: var(--c-blue);
           color: #fff;
           font-family: var(--font-sans);
-          font-size: 12px;
+          font-size: 14px;
           letter-spacing: 0.1em;
           text-decoration: none;
           border-radius: 2px;
@@ -482,17 +494,17 @@ export default function Index() {
           padding: 10px 0 32px;
         }
         .timeline-time {
-          font-family: var(--font-serif);
-          font-size: 28px;
-          font-style: italic;
+          font-family: var(--font-sans);
+          font-size: clamp(22px, 3vw, 28px);
+          font-weight: 700;
           color: var(--c-blue);
           display: block;
           line-height: 1;
-          margin-bottom: 4px;
+          margin-bottom: 6px;
         }
         .timeline-desc {
           font-family: var(--font-sans);
-          font-size: 14px;
+          font-size: clamp(14px, 2vw, 17px);
           color: var(--c-text);
           line-height: 1.6;
         }
@@ -500,15 +512,15 @@ export default function Index() {
 
         /* ===== DRESSCODE ===== */
         .dresscode-intro {
-          font-family: var(--font-serif);
-          font-size: clamp(17px, 2.5vw, 22px);
+          font-family: var(--font-sans);
+          font-size: clamp(15px, 2.5vw, 19px);
           line-height: 1.8;
           color: var(--c-text);
           margin-bottom: 16px;
         }
         .dresscode-sub {
-          font-family: var(--font-serif);
-          font-size: clamp(15px, 2vw, 19px);
+          font-family: var(--font-sans);
+          font-size: clamp(14px, 2vw, 18px);
           font-style: italic;
           color: var(--c-blue);
           margin-bottom: 36px;
@@ -547,8 +559,8 @@ export default function Index() {
           display: flex;
           gap: 16px;
           font-family: var(--font-sans);
-          font-size: clamp(13px, 2vw, 15px);
-          color: rgba(255,255,255,0.9);
+          font-size: clamp(15px, 2.2vw, 17px);
+          color: rgba(255,255,255,0.92);
           line-height: 1.8;
           align-items: flex-start;
         }
@@ -564,9 +576,25 @@ export default function Index() {
         }
 
         /* ===== FORM ===== */
+        .sec-form-bg {
+          background-image: url('https://cdn.poehali.dev/projects/00026160-0537-4715-a8aa-39785d3a60b5/bucket/9ebe60c8-fd33-4766-a04e-abf3935cd077.jpg');
+          background-size: cover;
+          background-position: center;
+          position: relative;
+        }
+        .sec-form-bg::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(255,253,235,0.82);
+        }
+        .sec-form-bg .sec-inner {
+          position: relative;
+          z-index: 1;
+        }
         .form-intro {
-          font-family: var(--font-serif);
-          font-size: clamp(17px, 2.5vw, 22px);
+          font-family: var(--font-sans);
+          font-size: clamp(16px, 2.5vw, 20px);
           line-height: 1.8;
           color: var(--c-text);
           margin-bottom: 40px;
@@ -591,18 +619,19 @@ export default function Index() {
         }
         .form-group label:first-child {
           font-family: var(--font-sans);
-          font-size: 11px;
-          letter-spacing: 0.25em;
+          font-size: 13px;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--c-blue);
+          font-weight: 600;
         }
         .form-group input[type="text"],
         .form-group textarea {
           padding: 14px 16px;
           border: 1.5px solid var(--c-blue-light);
           border-radius: 3px;
-          font-family: var(--font-serif);
-          font-size: 17px;
+          font-family: var(--font-sans);
+          font-size: 16px;
           color: var(--c-text);
           background: var(--c-white);
           outline: none;
@@ -623,11 +652,11 @@ export default function Index() {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 10px 18px;
+          padding: 12px 20px;
           border: 1.5px solid var(--c-blue-light);
           border-radius: 2px;
           font-family: var(--font-sans);
-          font-size: 13px;
+          font-size: 15px;
           color: var(--c-text);
           cursor: pointer;
           transition: all 0.2s;
@@ -647,11 +676,11 @@ export default function Index() {
           display: flex;
           align-items: center;
           gap: 6px;
-          padding: 8px 14px;
+          padding: 10px 16px;
           border: 1.5px solid var(--c-blue-light);
           border-radius: 2px;
           font-family: var(--font-sans);
-          font-size: 12px;
+          font-size: 14px;
           color: var(--c-text);
           cursor: pointer;
           transition: all 0.2s;
@@ -663,11 +692,11 @@ export default function Index() {
           color: var(--c-text);
         }
         .submit-btn {
-          padding: 16px 40px;
+          padding: 18px 48px;
           background: var(--c-blue);
           color: #fff;
           font-family: var(--font-sans);
-          font-size: 13px;
+          font-size: 15px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           border: none;
@@ -724,14 +753,14 @@ export default function Index() {
         }
         .contact-icon { font-size: 28px; }
         .contact-name {
-          font-family: var(--font-serif);
-          font-size: 22px;
-          font-style: italic;
+          font-family: var(--font-sans);
+          font-size: 20px;
+          font-weight: 600;
           color: var(--c-text);
         }
         .contact-phone {
           font-family: var(--font-sans);
-          font-size: 16px;
+          font-size: 18px;
           color: var(--c-blue);
           font-weight: 500;
           letter-spacing: 0.05em;
@@ -744,29 +773,26 @@ export default function Index() {
           text-align: center;
         }
         .footer-script {
-          font-family: var(--font-script);
-          font-size: clamp(36px, 8vw, 64px);
+          font-family: var(--font-sans);
+          font-size: clamp(22px, 5vw, 38px);
+          font-weight: 600;
           color: var(--c-lemon);
-          line-height: 1.3;
+          line-height: 1.4;
           margin: 24px 0 16px;
         }
         .footer-names {
           font-family: var(--font-sans);
-          font-size: 11px;
+          font-size: 13px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           margin-top: 8px;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
-          .tile-corner { width: 130px; height: 130px; }
-          .hero-lemon { font-size: 32px; }
-          .hero-lemon.l1 { top: 20%; left: 2%; }
-          .hero-lemon.l2 { top: 10%; right: 2%; }
-          .hero-lemon.l3 { bottom: 22%; left: 2%; }
-          .hero-lemon.l4 { bottom: 14%; right: 2%; }
+          .hero-lemon-img { width: 220px; top: -75px; }
+          .hero-oval { padding: 60px 20px 32px; }
           .places-grid { grid-template-columns: 1fr; }
           .dresscode-images { grid-template-columns: 1fr; }
           .contacts { flex-direction: column; align-items: center; }
@@ -777,30 +803,27 @@ export default function Index() {
       <section className="hero">
         <div className="hero-frame" />
 
-        {/* Majolica tile corners */}
-        {["tl", "tr", "bl", "br"].map((pos) => (
-          <div key={pos} className={`tile-corner ${pos}`}>
-            {Array.from({ length: 9 }).map((_, i) => <div key={i} className="tile-cell" />)}
+        <div className="hero-inner reveal">
+          <div className="hero-oval-wrap">
+            {/* Watercolor lemon illustration — выступает над овалом */}
+            <img
+              className="hero-lemon-img"
+              src="https://cdn.poehali.dev/projects/00026160-0537-4715-a8aa-39785d3a60b5/bucket/bf35e26a-3a93-440c-99ea-020d05f40b77.jpeg"
+              alt="акварельные лимоны"
+            />
+            <div className="hero-oval">
+              <div className="hero-oval-inner">
+                <p className="hero-ciao">приглашаем вас на нашу свадьбу</p>
+                <Divider />
+                <h1 className="hero-names">Эдуард</h1>
+                <span className="hero-ampersand">&amp;</span>
+                <h1 className="hero-names">Полина</h1>
+                <Divider />
+                <p className="hero-date">26 мая 2026 года</p>
+                <p className="hero-location">Иркутск · La Dolce Vita</p>
+              </div>
+            </div>
           </div>
-        ))}
-
-        {/* Floating lemons */}
-        <span className="hero-lemon l1">🍋</span>
-        <span className="hero-lemon l2">🍋</span>
-        <span className="hero-lemon l3">🍋</span>
-        <span className="hero-lemon l4">🍋</span>
-
-        <div className="hero-inner">
-          <p className="hero-ciao reveal">Ciao!</p>
-          <p className="hero-sub reveal">приглашаем вас на</p>
-          <h1 className="hero-names reveal">
-            Эдуард<br />
-            <em>&amp;</em>
-            Полина
-          </h1>
-          <Divider />
-          <p className="hero-date reveal">26 мая 2026 года</p>
-          <p className="hero-location reveal">Иркутск · La Dolce Vita</p>
         </div>
       </section>
 
@@ -820,7 +843,9 @@ export default function Index() {
       {/* ===== COUNTDOWN ===== */}
       <section className="sec sec-blue">
         <div className="lemon-strip reveal">
-          {Array.from({ length: 8 }).map((_, i) => <span key={i}>🍋</span>)}
+          <div className="ornament-line">
+            <span className="ornament-symbol">✦ ✦ ✦ ✦ ✦</span>
+          </div>
         </div>
         <div className="sec-inner">
           <h2 className="sec-title light reveal">До торжества осталось</h2>
@@ -830,7 +855,7 @@ export default function Index() {
               { v: hours, l: "часов" },
               { v: minutes, l: "минут" },
               { v: seconds, l: "секунд" },
-            ].map(({ v, l }, i) => (
+            ].map(({ v, l }) => (
               <div className="countdown-unit" key={l}>
                 <span className="countdown-num">{String(v).padStart(2, "0")}</span>
                 <span className="countdown-label">{l}</span>
@@ -839,7 +864,9 @@ export default function Index() {
           </div>
         </div>
         <div className="lemon-strip reveal">
-          {Array.from({ length: 8 }).map((_, i) => <span key={i}>🍋</span>)}
+          <div className="ornament-line">
+            <span className="ornament-symbol">✦ ✦ ✦ ✦ ✦</span>
+          </div>
         </div>
       </section>
 
@@ -938,7 +965,9 @@ export default function Index() {
       {/* ===== ПОЖЕЛАНИЯ ===== */}
       <section className="sec sec-blue">
         <div className="lemon-strip reveal">
-          {Array.from({ length: 8 }).map((_, i) => <span key={i}>🍋</span>)}
+          <div className="ornament-line">
+            <span className="ornament-symbol">✦ ✦ ✦ ✦ ✦</span>
+          </div>
         </div>
         <div className="sec-inner">
           <h2 className="sec-title light reveal">Несколько пожеланий</h2>
@@ -963,12 +992,14 @@ export default function Index() {
           </ul>
         </div>
         <div className="lemon-strip reveal" style={{ marginTop: 32 }}>
-          {Array.from({ length: 8 }).map((_, i) => <span key={i}>🍋</span>)}
+          <div className="ornament-line">
+            <span className="ornament-symbol">✦ ✦ ✦ ✦ ✦</span>
+          </div>
         </div>
       </section>
 
       {/* ===== АНКЕТА ===== */}
-      <section className="sec sec-white">
+      <section className="sec sec-white sec-form-bg">
         <div className="sec-inner">
           <h2 className="sec-title blue reveal">Анкета гостя</h2>
           <Divider />
@@ -1067,7 +1098,9 @@ export default function Index() {
       {/* ===== FOOTER ===== */}
       <footer className="footer">
         <div className="lemon-strip">
-          {Array.from({ length: 10 }).map((_, i) => <span key={i}>🍋</span>)}
+          <div className="ornament-line">
+            <span className="ornament-symbol">✦ ✦ ✦ ✦ ✦ ✦</span>
+          </div>
         </div>
         <p className="footer-script">До скорых встреч!<br />La Dolce Vita!</p>
         <p className="footer-names">Эдуард &amp; Полина · 26.05.2026</p>
