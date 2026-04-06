@@ -99,7 +99,7 @@ export default function Index() {
           --c-blue-dark: #2d5585;
           --c-blue-light: #ddeaf7;
           --c-blue-section: #6B9BC8;
-          --c-lemon: #D4A017;
+          --c-lemon: #F5C200;
           --c-lemon-light: #FFF8E1;
           --c-white: #FEFCF5;
           --c-text: #1a1a1a;
@@ -775,17 +775,18 @@ export default function Index() {
         }
         .contact-icon { font-size: 28px; }
         .contact-name {
-          font-family: var(--font-sans);
-          font-size: 20px;
-          font-weight: 600;
+          font-family: var(--font-display);
+          font-size: 24px;
+          font-weight: 500;
+          font-style: italic;
           color: var(--c-text);
         }
         .contact-phone {
-          font-family: var(--font-sans);
-          font-size: 18px;
+          font-family: var(--font-serif);
+          font-size: 19px;
           color: var(--c-blue);
-          font-weight: 500;
-          letter-spacing: 0.05em;
+          font-weight: 400;
+          letter-spacing: 0.06em;
         }
 
         /* ===== FOOTER ===== */
